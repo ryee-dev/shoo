@@ -1,0 +1,3 @@
+class StoreBrand
+
+end

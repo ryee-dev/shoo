@@ -1,27 +1,82 @@
-body{
+body {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
   width: 100%;
   height: 100%;
+  background-color: black;
+  font-family: 'Quicksand', sans-serif;
 }
+
 h1 {
+  font-family: 'Megrim', cursive;
   text-align: center;
+}
+
+.container {
+  background-color: white;
+  height: 100%;
+  width: 75%;
 }
 
 .glyphicon {
   color: black;
 }
 
+/* Carousel */
+
+#myCarousel {
+  margin-top: 10%;
+  width: 100%;
+  height: 50%;
+}
+
 #slide {
-  height: 25%;
-  width: 25%;
+  height: 30%;
+  width: 30%;
+  display: block;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  margin: 0 auto;
+}
+
+#title-label {
+  display: block;
+  margin: 0 auto;
+  font-size: 50px;
+  font-family: 'Megrim', cursive;
+  text-align: center;
+}
+
+#logo {
+  position: auto;
+  display: block;
+  height: 150px;
+  padding-top: 25px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.active {
   display: block;
   margin: 0 auto;
 }
 
-#logo {
+/* Buttons */
+
+.btn#add-button {
   display: block;
+  height: 75px;
+  width: 500px;
+  margin: 25px auto 25px auto;
+
+}
+
+#add-text {
   margin: 0 auto;
-  padding-top: 25px;
-  padding-bottom: 25px;
-  height: 25%;
-  width: 25%;
+  text-align: center;
+  font-size: 42px;
+  font-family: 'Quicksand', sans-serif;
 }

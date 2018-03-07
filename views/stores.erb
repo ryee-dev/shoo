@@ -1,0 +1,11 @@
+<div class="narrow">
+
+    <h1>Stores</h1>
+    <hr>
+    <% @all_stores.each do |store| %>
+    <h3><a href="/stores/<%= store.id %>"><%= store.name %></h3>
+    <% end %>
+
+
+  <a href="/add-store" class="btn btn-2" id="add-button">Add Store</a>
+</div>

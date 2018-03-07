@@ -7,11 +7,10 @@ body {
   width: 100%;
   height: 100%;
   background-color: black;
-  font-family: 'Quicksand', sans-serif;
+  font-family: 'Jura', sans-serif;
 }
 
 h1 {
-  font-family: 'Megrim', cursive;
   text-align: center;
 }
 
@@ -19,6 +18,8 @@ h1 {
   background-color: white;
   height: 100%;
   width: 75%;
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .glyphicon {
@@ -28,7 +29,6 @@ h1 {
 /* Carousel */
 
 #myCarousel {
-  margin-top: 10%;
   width: 100%;
   height: 50%;
 }
@@ -46,14 +46,22 @@ h1 {
   display: block;
   margin: 0 auto;
   font-size: 50px;
-  font-family: 'Megrim', cursive;
+  text-align: center;
+}
+
+#home-logo {
+  position: auto;
+  display: block;
+  height: 120px;
+  padding-top: 25px;
+  margin: 0 auto;
   text-align: center;
 }
 
 #logo {
   position: auto;
   display: block;
-  height: 150px;
+  height: 100px;
   padding-top: 25px;
   margin: 0 auto;
   text-align: center;
@@ -66,12 +74,96 @@ h1 {
 
 /* Buttons */
 
-.btn#add-button {
+.btn {
+  font-family: 'Rajdhani', sans-serif;
+  color: #000;
+  cursor: pointer;
+  display: block;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 45px;
+  margin: 0 auto 2em;
+  max-width: 160px;
+  position: relative;
+  text-decoration: none;
+  text-transform: uppercase;
+  vertical-align: middle;
+  width: 100%;
+
+  @media(min-width: 400px) {
+    display: inline-block;
+    margin-right: 2.5em;
+
+    &:nth-of-type(even) {
+      margin-right: 0;
+    }
+  }
+
+  @media(min-width: 600px) {
+
+    &:nth-of-type(even) {
+      margin-right: 2.5em;
+    }
+
+    &:nth-of-type(5) {
+      margin-right: 0;
+    }
+
+  }
+
+  &:hover { text-decoration: none; }
+
+}
+
+.btn-2 {
+  letter-spacing: 0;
+}
+
+.btn-2:hover,
+.btn-2:active {
+  letter-spacing: 5px;
+}
+
+.btn-2:after,
+.btn-2:before {
+  backface-visibility: hidden;
+  border: 1px solid white;
+  bottom: 0px;
+  content: " ";
+  display: block;
+  margin: 0 auto;
+  position: relative;
+  transition: all 280ms ease-in-out;
+  width: 0;
+}
+
+.btn-2:hover:after,
+.btn-2:hover:before {
+  backface-visibility: hidden;
+  border-color: black;
+  transition: all 350ms ease-in-out;
+  width: 70%;
+}
+
+.btn-2:hover:before {
+  bottom: auto;
+  top: 0;
+  width: 70%;
+}
+
+#add-button {
+  font-size: 25px;
   display: block;
   height: 75px;
   width: 500px;
   margin: 25px auto 25px auto;
 
+}
+
+#go-home {
+  position: relative;
+  display: block;
+  margin-top: 40%;
 }
 
 #add-text {
@@ -81,12 +173,20 @@ h1 {
   font-family: 'Quicksand', sans-serif;
 }
 
+.navbar {
+  width: 35%;
+  display: block;
+  margin: 0 auto;
+}
+
 /* Forms */
 
 .narrow {
   display: block;
-  margin-top: 10%;
+  height: 50%;
+  margin-top: 15%;
   margin-left: 15%;
   margin-right: 15%;
+  margin-bottom: 0;
 
 }

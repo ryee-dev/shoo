@@ -11,3 +11,7 @@ require 'pg'
 get('/') do
   erb(:home)
 end
+
+get '/add-store' do
+  erb(:add_store)
+end

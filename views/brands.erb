@@ -1,0 +1,20 @@
+<div class="narrow">
+
+  <h1>Brands</h1>
+  <hr>
+
+  <% @all_brands.each do |brand| %>
+    <h3><a href="/brands/<%= brand.id %>"><%= brand.name %></a></h3>
+    <hr>
+    <h3>$<%= brand.price %></h3>
+    <form action="/brands/<%= brand.id %>" method="post" >
+      <input name="_method" type="hidden" value="delete">
+      <input name="delete_brand" type="hidden" value="<%= brand.id %>">
+      <button type="submit" class="btn btn-2">Delete</button>
+    </form>
+    <% end %>
+
+  <a href="/add-brand" class="btn btn-2" id="add-button">Add Brand</a>
+
+  <a href="/" class="btn btn-2" id="go-home">Home</a>
+</div>

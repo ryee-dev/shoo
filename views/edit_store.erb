@@ -1,6 +1,7 @@
 <div class="narrow">
-  <a href="/"><img src="../img/shoo_logo.png" alt="logo" id="logo"></a><br>
+
   <h1> <%= @store.name %> </h1>
+  <h1> <%= @store.location %> </h1>
 
 <h3>Edit Store Name:</h3>
 <form action="/stores/<%= @store.id %>" method="post">
@@ -10,6 +11,24 @@
     <br>
     <br>
     <button type="submit" class="btn btn-2">Change Name</button>
+</form>
+
+<h3>Edit Store Location:</h3>
+<form action="/stores/<%= @store.id %>" method="post">
+  <input type="hidden" name="_method" value="patch">
+    <label for="update_name">New Location:</label>
+    <input type="text" name="update_location" class="form-control" placeholder="Enter New Location">
+    <br>
+    <br>
+    <button type="submit" class="btn btn-2">Change Location</button>
+</form>
+
+
+
+<form action="/stores/<%= @store.id %>" method="post" >
+  <input name="_method" type="hidden" value="delete">
+  <input name="delete_store" type="hidden" value="<%= @store.id %>">
+  <button type="submit" class="btn btn-2">Remove Store</button>
 </form>
 <a href="/" class="btn btn-2" id="go-home">Home</a>
 

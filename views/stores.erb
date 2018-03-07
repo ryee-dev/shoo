@@ -1,10 +1,14 @@
 <div class="narrow">
 
     <h1>Stores</h1>
-    <hr>
+    <br>
     <% @all_stores.each do |store| %>
-    <h3><a href="/stores/<%= store.id %>"><%= store.name %></h3>
+      <h3><a href="/stores/<%= store.id %>"><%= store.name %></a></h3>
+      <hr>
+      <h3><%= store.location %></h3>
+      <br>
     <% end %>
 
   <a href="/add-store" class="btn btn-2" id="add-button">Add Store</a>
+  <a href="/" class="btn btn-2">Home</a>
 </div>

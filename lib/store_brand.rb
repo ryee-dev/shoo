@@ -1,4 +1,4 @@
 class StoreBrand < ActiveRecord::Base
-  belongs_to :store
-  belongs_to :brand
+  belongs_to :stores
+  belongs_to :brands
 end

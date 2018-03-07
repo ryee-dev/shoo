@@ -8,10 +8,12 @@ require './lib/store_brand'
 require 'pry'
 require 'pg'
 
-get('/') do
-  erb(:home)
+get '/' do
+  @all_stores = Stores.all
+  @all_brands = Brands.all
+  erb :home
 end
 
 get '/add-store' do
-  erb(:add_store)
+  erb :add_store
 end

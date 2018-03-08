@@ -3,58 +3,49 @@
   <h1> <%= @store.name %> </h1>
   <h1> <%= @store.location %> </h1>
 
-<h3>Edit Store Name:</h3>
-<form action="/stores/<%= @store.id %>" method="post">
-  <input type="hidden" name="_method" value="patch">
+  <h3>Edit Store Name:</h3>
+  <form action="/stores/<%= @store.id %>" method="post">
+    <input type="hidden" name="_method" value="patch">
     <label for="update_name">New Name:</label>
     <input type="text" name="update_name" class="form-control" placeholder="Enter New Name">
-    <br>
-    <br>
     <button type="submit" class="btn btn-2">Change Name</button>
-</form>
+  </form>
 
-<h3>Edit Store Location:</h3>
-<form action="/stores/<%= @store.id %>" method="post">
-  <input type="hidden" name="_method" value="patch">
-    <label for="update_name">New Location:</label>
+  <h3>Edit Store Location:</h3>
+  <form action="/stores/<%= @store.id %>" method="post">
+    <input type="hidden" name="_method" value="patch">
+    <label for="update_location">New Location:</label>
     <input type="text" name="update_location" class="form-control" placeholder="Enter New Location">
     <br>
-    <br>
     <button type="submit" class="btn btn-2">Change Location</button>
-</form>
+  </form>
 
-<h1>Add Brand:</h1>
-
-<form class="add-brand" action="/stores/<%= @store.id %>" method="post">
-  <div class="form-group">
-    <label for="brand_name">Brand Name: </label>
-    <input type="text" name="brand_name" class="form-control" placeholder="Enter Brand Name">
-  </div>
-  <div class="form-group">
-    <label for="brand_price">Brand Price: </label>
-    <input type="text" name="brand_price" class="form-control" placeholder="e.g. $120">
-  </div>
-  <button type="submit" class="btn btn-2">Add</button>
-
-</form>
-
-
-<div class="dropdown">
-  <button class="dropbtn">Brands</button>
-  <div class="dropdown-content">
-    <% @all_brands.each do |brand| %>
-    <h3>brand.name</h3>
+  <form action="/stores/<%= @store.id %>/brands" method="post" class="form-container">
+    <p><select id="brands_id" name="brands_id">
+      <option disabled selected>-select-</option>
+      <% @brands.each do |brand| %>
+        <% unless @assigned_brands.include?(brand) %>
+          <option value="<%=brand.id%>"><%= brand.brand_name %></option>
+      <% end %>
     <% end %>
+    </select></p>
+    <p><button type="submit" class="btn btn-info">Add brand</button></p>
+  </form>
+
+  <div class="dropdown">
+    <button class="dropbtn">Brands</button>
+    <div class="dropdown-content">
+      <% @all_brands.each do |brand| %>
+      <h3>brand.name</h3>
+      <% end %>
+    </div>
   </div>
-</div>
 
-
-
-<form action="/stores/<%= @store.id %>" method="post" >
-  <input name="_method" type="hidden" value="delete">
-  <input name="delete_store" type="hidden" value="<%= @store.id %>">
-  <button type="submit" class="btn btn-2">Remove Store</button>
-</form>
-<a href="/" class="btn btn-2" id="go-home">Home</a>
+  <form action="/stores/<%= @store.id %>" method="post" >
+    <input name="_method" type="hidden" value="delete">
+    <input name="delete_store" type="hidden" value="<%= @store.id %>">
+    <button type="submit" class="btn btn-2">Remove Store</button>
+  </form>
+  <a href="/" class="btn btn-2" id="go-home">Home</a>
 
 </div>

@@ -1,5 +1,6 @@
 require('rspec')
 require('store')
+require('brand')
 require('pry')
 require('pg')
 

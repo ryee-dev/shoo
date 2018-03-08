@@ -16,18 +16,18 @@ get '/stores' do
   erb :stores
 end
 
+get '/brands' do
+  @all_brands = Brand.all
+  @all_stores = Store.all
+  erb :brands
+end
+
 post '/stores' do
   store_name = params[:store_name]
   store_location = params[:store_location]
   Store.create({:name => store_name, :location => store_location})
   @all_stores = Store.all
   erb :stores
-end
-
-get '/brands' do
-  @all_brands = Brand.all
-  @all_stores = Store.all
-  erb :brands
 end
 
 post '/brands' do
@@ -50,52 +50,6 @@ post '/add-store' do
   erb :add_store
 end
 
-get '/stores/:id' do
-  id = params[:id].to_i
-  @store = Store.find(id)
-  @all_brands = Brand.all
-  @all_stores = Store.all
-  erb :edit_store
-end
-
-post '/stores/:id' do
-  brand_name = params[:brand_name]
-  brand_price = params[:brand_price]
-  brand_id = params[:brand_id].to_i
-  @brand = Brand.find(brand_id)
-  Brand.create({:name => brand_name, :price => brand_price})
-  @all_brands = Brand.all
-  redirect '/stores/:id'
-end
-
-patch '/stores/:id' do
-  updated_name = params[:update_name]
-  updated_location = params[:update_location]
-  id = params[:id].to_i
-  brand_id = params[:brand_id].to_i
-  @store = Store.find(id)
-  @brand = Brand.find(brand_id)
-  @store.update({:name => updated_name, :location => updated_location})
-  @brand.update({:name => brand_name, :price => brand_price})
-  @all_stores = Store.all
-
-  brand_name = params[:brand_name]
-  brand_price = params[:brand_price]
-
-  @brand.update({:name => brand_name, :price => brand_price})
-  @all_brands = Brand.all
-
-  redirect '/stores/:id'
-end
-
-delete '/stores/:id' do
-  @store_id = params[:id].to_i
-  @store = Store.find(@store_id)
-  @store.destroy
-  @all_stores = Store.all
-  redirect '/stores'
-end
-
 get '/add-brand' do
   erb :add_brand
 end
@@ -105,6 +59,60 @@ post '/add-brand' do
   brand_price = params[:brand_price]
   Brand.create({:name => brand_name, :price => brand_price})
   @all_brands = Brand.all
+  erb :add_brand
+end
+
+get '/stores/:id' do
+  @store = Store.find(params[:id].to_i)
+  @all_brands = Brand.all
+  @all_stores = Store.all
+  erb :edit_store
+end
+
+post '/stores/:id/brands' do
+  store_id = params.fetch("id").to_i
+  brands_id = params.fetch("brands_id").to_i
+  current_brands = Brand.find(brands_id)
+  @store = Store.find(store_id)
+  @store.brands.push(current_brands)
+  @assigned_brands = @store.brands
+  @brands = Brand.all
+  erb :edit_store
+end
+
+patch '/stores/:id' do
+  updated_name = params[:update_name]
+  updated_location = params[:update_location]
+  @store = Store.find(params[:id].to_i)
+  if updated_location
+    @store.update(:location => updated_location)
+  elsif updated_name
+    @store.update(:name => updated_name)
+  end
+  @store.update(:name => updated_name, :location => updated_location)
+  redirect("/stores/".concat(@store.id.to_s()))
+end
+
+delete '/stores/:id' do
+  store_id = params[:id].to_i
+  @store = Store.find(store_id)
+  @store.destroy
+  @all_stores = Store.all
+  redirect '/stores'
+end
+
+get '/stores/:id/add-brand' do
+
+  erb :add_brand
+end
+
+patch '/stores/:id/add-brand' do
+  @store = Store.find(params['id'].to_i)
+  @brand = Brand.find(params['brand_id'].to_i)
+  brand_name = params['brand_name']
+  brand_price = params['brand_price']
+  @store.brands.push(@brand)
+  @brand.stores.where({:store_id => @store.id}).update({:name => brand_name, :price => brand_price})
   erb :add_brand
 end
 

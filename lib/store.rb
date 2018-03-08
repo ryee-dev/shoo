@@ -1,4 +1,6 @@
 class Store < ActiveRecord::Base
-  has_many :stores_brands
-  has_many :brands, through: :stores_brands
+  has_and_belongs_to_many :brands
+
+  validates :name, {:presence => true, :length => {:maximum => 25}}
+  validates_uniqueness_of :name
 end

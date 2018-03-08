@@ -4,7 +4,6 @@ require 'sinatra/activerecord'
 also_reload 'lib/**.*.rb'
 require './lib/store'
 require './lib/brand'
-require './lib/store_brand'
 require 'pry'
 
 get '/' do
@@ -52,22 +51,41 @@ post '/add-store' do
 end
 
 get '/stores/:id' do
-  @store = Store.find(params[:id].to_i)
+  id = params[:id].to_i
+  @store = Store.find(id)
   @all_brands = Brand.all
   @all_stores = Store.all
-  # @assigned_brands = @store.brands
   erb :edit_store
+end
+
+post '/stores/:id' do
+  brand_name = params[:brand_name]
+  brand_price = params[:brand_price]
+  brand_id = params[:brand_id].to_i
+  @brand = Brand.find(brand_id)
+  Brand.create({:name => brand_name, :price => brand_price})
+  @all_brands = Brand.all
+  redirect '/stores/:id'
 end
 
 patch '/stores/:id' do
   updated_name = params[:update_name]
   updated_location = params[:update_location]
-  @store_id = params[:id].to_i
-  @store = Store.find(@store_id)
-  @store.update(:name => updated_name, :location => updated_location)
+  id = params[:id].to_i
+  brand_id = params[:brand_id].to_i
+  @store = Store.find(id)
+  @brand = Brand.find(brand_id)
+  @store.update({:name => updated_name, :location => updated_location})
+  @brand.update({:name => brand_name, :price => brand_price})
   @all_stores = Store.all
+
+  brand_name = params[:brand_name]
+  brand_price = params[:brand_price]
+
+  @brand.update({:name => brand_name, :price => brand_price})
   @all_brands = Brand.all
-  erb :edit_store
+
+  redirect '/stores/:id'
 end
 
 delete '/stores/:id' do

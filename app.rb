@@ -63,34 +63,31 @@ post '/add-brand' do
 end
 
 get '/stores/:id' do
-  @store = Store.find(params[:id].to_i)
+  @store = Store.find(params[:id])
   @all_brands = Brand.all
-  @all_stores = Store.all
-  erb :edit_store
-end
-
-post '/stores/:id/brands' do
-  store_id = params.fetch("id").to_i
-  brands_id = params.fetch("brands_id").to_i
-  current_brands = Brand.find(brands_id)
-  @store = Store.find(store_id)
-  @store.brands.push(current_brands)
   @assigned_brands = @store.brands
-  @brands = Brand.all
   erb :edit_store
 end
 
 patch '/stores/:id' do
   updated_name = params[:update_name]
   updated_location = params[:update_location]
-  @store = Store.find(params[:id].to_i)
-  if updated_location
-    @store.update(:location => updated_location)
-  elsif updated_name
-    @store.update(:name => updated_name)
-  end
+  @id = params[:id].to_i
+  @store = Store.find(@id)
   @store.update(:name => updated_name, :location => updated_location)
-  redirect("/stores/".concat(@store.id.to_s()))
+  @all_brands = Brand.all
+  erb :edit_store
+end
+
+post '/stores/:id/brands' do
+  store_id = params[:id].to_i
+  brands_id = params[:brands_id].to_i
+  current_brands = Brand.find(brands_id)
+  @store = Store.find(store_id)
+  @store.brands.push(current_brands)
+  @assigned_brands = @store.brands
+  @all_brands = Brand.all
+  erb :edit_store
 end
 
 delete '/stores/:id' do
@@ -101,26 +98,11 @@ delete '/stores/:id' do
   redirect '/stores'
 end
 
-get '/stores/:id/add-brand' do
-
-  erb :add_brand
-end
-
-patch '/stores/:id/add-brand' do
-  @store = Store.find(params['id'].to_i)
-  @brand = Brand.find(params['brand_id'].to_i)
-  brand_name = params['brand_name']
-  brand_price = params['brand_price']
-  @store.brands.push(@brand)
-  @brand.stores.where({:store_id => @store.id}).update({:name => brand_name, :price => brand_price})
-  erb :add_brand
-end
-
 get '/brands/:id' do
   @brand = Brand.find(params[:id].to_i)
   @all_brands = Brand.all
   @all_stores = Store.all
-  # @assigned_brands = @store.brands
+  @assigned_brands = @store.brands
   erb :edit_brand
 end
 
